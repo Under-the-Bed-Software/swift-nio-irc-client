@@ -5,7 +5,7 @@ import PackageDescription
 var packageDependencies : [ Package.Dependency ] = [
     .package(url:  "https://github.com/apple/swift-nio.git",
              from: "2.25.1"),
-    .package(url:  "https://github.com/SwiftNIOExtras/swift-nio-irc.git",
+    .package(url:  "https://github.com/Under-the-Bed-Software/swift-nio-irc.git",
              from: "0.8.0")
 ]
 var targetDependencies : [ Target.Dependency ] = [ "NIO", "NIOIRC" ]
