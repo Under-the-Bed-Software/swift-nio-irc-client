@@ -8,25 +8,15 @@
 <a href="https://travis-ci.org/NozeIO/swift-nio-irc-client"><img src="https://travis-ci.org/NozeIO/swift-nio-irc-client.svg?branch=develop" /></a>
 
 SwiftNIO-IRC is a Internet Relay Chat 
-[protocol implementation](Sources/NIOIRC) for
+protocol implemention for
 [SwiftNIO](https://github.com/apple/swift-nio)
 and a simple 
 [IRC client](Sources/IRC).
 
-This module contains a simple IRC client library. We also
-provide:
-- [swift-nio-irc](https://github.com/SwiftNIOExtras/swift-nio-irc) -
-  the raw Swift NIO IRC protocol implementation
-- [swift-nio-irc-webclient](https://github.com/NozeIO/swift-nio-irc-webclient) -
-  a simple IRC webclient + WebSocket gateway based on this module,
-- [swift-nio-irc-eliza](https://github.com/NozeIO/swift-nio-irc-eliza) -
-  a cheap yet scalable therapist,
-- [swift-nio-irc-server](https://github.com/NozeIO/swift-nio-irc-server) -
-  a framework to build IRC servers, and MiniIRCd, a small sample server.
-  
-To get started with this, pull 
-[swift-nio-irc-server](https://github.com/NozeIO/swift-nio-irc-server) -
-a module to rule them all and in the darkness bind them.
+This module contains a simple IRC client library. Also provided:
+
+- [BrickBot](https://github.com/Under-the-Bed-Software/BrickBot) - A simple IRC bot using swift-nio-irc-client
+
 
 NIOIRC is a SwiftNIO port of the
 [Noze.io miniirc](https://github.com/NozeIO/Noze.io/tree/master/Samples/miniirc)
@@ -45,8 +35,8 @@ import PackageDescription
 let package = Package(
     name: "IRCTests",
     dependencies: [
-        .package(url: "https://github.com/NozeIO/swift-nio-irc-client.git",
-                 from: "0.7.0")
+        .package(url: "https://github.com/Under-the-Bed-Software/swift-nio-irc-client.git",
+                 from: "0.8.2")
     ],
     targets: [
         .target(name: "MyIRCClient",
@@ -58,10 +48,6 @@ let package = Package(
 
 ### Who
 
-Brought to you by
-[ZeeZide](http://zeezide.de).
-We like
-[feedback](https://twitter.com/ar_institute),
-GitHub stars,
-cool [contract work](http://zeezide.com/en/services/services.html),
-presumably any form of praise you can think of.
+This software is a fork of [NozeIO's version](https://github.com/NozeIO/swift-nio-irc-client) implementation under the same name. This software was licensed under the Apache 2.0 license, and continues to be. 
+
+The original author of swift-nio-irc-client was made by [ZeeZide](http://zeezide.de). Please check them out!
