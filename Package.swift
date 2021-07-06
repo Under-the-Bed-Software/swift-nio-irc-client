@@ -5,10 +5,11 @@ import PackageDescription
 var packageDependencies : [ Package.Dependency ] = [
     .package(url:  "https://github.com/apple/swift-nio.git",
              from: "2.25.1"),
+    .package(url: "https://github.com/apple/swift-nio-ssl.git", from: "2.14.0"),
     .package(url:  "https://github.com/Under-the-Bed-Software/swift-nio-irc.git",
              from: "0.8.0")
 ]
-var targetDependencies : [ Target.Dependency ] = [ "NIO", "NIOIRC" ]
+var targetDependencies : [ Target.Dependency ] = [ "NIO", "NIOIRC", "NIOSSL", "NIOTLS" ]
 if #available(OSX 10.14, iOS 12.0, tvOS 12.0, watchOS 6.0, *) {
     packageDependencies += [
         .package(url:  "https://github.com/apple/swift-nio-transport-services",
