@@ -158,7 +158,8 @@ open class IRCClient : IRCClientMessageTarget {
         _ = bootstrap.channelInitializer { [weak self] channel in
             // use ssl if it's asked for
             if options.useSecure {
-                let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: TLSConfiguration.makeClientConfiguration()), serverHostname: options.hostname)
+                let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: TLSConfiguration.makeClientConfiguration()),
+                                                          serverHostname: options.hostname)
                 _ = channel.pipeline.addHandler(sslHandler, name: "ssl.handler")
             }
             return channel.pipeline
