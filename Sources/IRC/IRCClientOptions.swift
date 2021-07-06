@@ -21,17 +21,17 @@ MultiThreadedEventLoopGroup(numberOfThreads: 1)
 /// Configuration options for the socket connects
 open class ConnectOptions : CustomStringConvertible {
     
-    public var eventLoopGroup : EventLoopGroup
-    public var hostname       : String?
-    public var port           : Int
-    public var useSecure      : Bool
+    public var eventLoopGroup  : EventLoopGroup
+    public var hostname        : String?
+    public var port            : Int
+    public var securityOptions : IRCClientSecurityOptions
     
-    public init(hostname: String? = "localhost", port: Int = 80, useSecure: Bool = false,
+    public init(hostname: String? = "localhost", port: Int = 80, securityOptions: IRCClientSecurityOptions = IRCClientSecurityOptions(useSecure: false),
                 eventLoopGroup: EventLoopGroup? = nil)
     {
         self.hostname = hostname
         self.port     = port
-        self.useSecure = useSecure
+        self.securityOptions = securityOptions
         self.eventLoopGroup = eventLoopGroup
         ?? MultiThreadedEventLoopGroup.currentEventLoop
         ?? onDemandSharedEventLoopGroup
@@ -68,13 +68,13 @@ open class IRCClientOptions : ConnectOptions {
         self.init(nickname: IRCNickName(nick)!)
     }
     
-    public init(port           : Int             = DefaultIRCPort,
-                host           : String          = "localhost",
-                useSecure      : Bool            = false,
-                password       : String?         = nil,
-                nickname       : IRCNickName,
-                userInfo       : IRCUserInfo?    = nil,
-                eventLoopGroup : EventLoopGroup? = nil)
+    public init(port            : Int                      = DefaultIRCPort,
+                host            : String                   = "localhost",
+                securityOptions : IRCClientSecurityOptions = defaultSecurityOptions,
+                password        : String?                  = nil,
+                nickname        : IRCNickName,
+                userInfo        : IRCUserInfo?             = nil,
+                eventLoopGroup  : EventLoopGroup?          = nil)
     {
         self.password      = password
         self.nickname      = nickname
@@ -84,7 +84,7 @@ open class IRCClientOptions : ConnectOptions {
                                                 hostname: host, servername: host,
                                                 realname: "NIO IRC User")
         
-        super.init(hostname: host, port: port, useSecure: useSecure, eventLoopGroup: eventLoopGroup)
+        super.init(hostname: host, port: port, securityOptions: securityOptions, eventLoopGroup: eventLoopGroup)
     }
     
     override open func appendToDescription(_ ms: inout String) {
@@ -93,5 +93,24 @@ open class IRCClientOptions : ConnectOptions {
         ms += " \(userInfo)"
         if password      != nil { ms += " pwd"                  }
         if retryStrategy != nil { ms += " has-retryStrategy-cb" }
+    }
+}
+
+public let defaultSecurityOptions = IRCClientSecurityOptions()
+
+/// Client Security Options
+open class IRCClientSecurityOptions {
+    open var useSecure: Bool
+    open var verficationMode: CertificateVerificationMode?
+    
+    public init(useSecure: Bool = false, vertificationMode: CertificateVerificationMode? = .strict) {
+        self.useSecure = useSecure
+        self.verficationMode = vertificationMode
+    }
+    
+    public enum CertificateVerificationMode {
+        case strict
+        case lax
+        case noChecks
     }
 }
