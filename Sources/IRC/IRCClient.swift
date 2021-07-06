@@ -171,6 +171,7 @@ open class IRCClient : IRCClientMessageTarget {
                     break
                 }
                 let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: sslConfig), serverHostname: options.hostname)
+                print("ASDF")
                 _ = channel.pipeline.addHandler(sslHandler, name: "sslHandler")
             }
 //            switch options.useSecure {
