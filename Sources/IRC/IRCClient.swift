@@ -156,7 +156,7 @@ open class IRCClient : IRCClientMessageTarget {
         _ = bootstrap.channelOption(ChannelOptions.reuseAddr, value: 1)
         
         _ = bootstrap.channelInitializer { [weak self] channel in
-            // different types of SSL modes (i really don't like how this code looks
+            // different types of SSL modes
             // FIXME: - make this code look less bad
             if options.securityOptions.useSecure {
                 var sslConfig = TLSConfiguration.makeClientConfiguration()
@@ -171,26 +171,9 @@ open class IRCClient : IRCClientMessageTarget {
                     break
                 }
                 let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: sslConfig), serverHostname: options.hostname)
-                print("ASDF")
+                print("what: \(sslHandler)")
                 _ = channel.pipeline.addHandler(sslHandler, name: "sslHandler")
             }
-//            switch options.useSecure {
-//            case .strict:
-//                var sslConfig = TLSConfiguration.makeClientConfiguration()
-//                sslConfig.certificateVerification = .fullVerification
-//                let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: sslConfig), serverHostname: options.hostname)
-//            case .lax:
-//                var sslConfig = TLSConfiguration.makeClientConfiguration()
-//                sslConfig.certificateVerification = .noHostnameVeri
-//                let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: sslConfig), serverHostname: options.hostname)
-//            case .none:
-//                break // do nothing here
-//            }
-//            if options.useSecure {
-//                let sslHandler = try! NIOSSLClientHandler(context: try! NIOSSLContext(configuration: TLSConfiguration.makeClientConfiguration()),
-//                                                          serverHostname: options.hostname)
-//                _ = channel.pipeline.addHandler(sslHandler, name: "sslhandler")
-//            }
             return channel.pipeline
                 .addHandler(IRCChannelHandler(), name: "de.zeezide.nio.irc.protocol")
                 .flatMap { [weak self] _ in
