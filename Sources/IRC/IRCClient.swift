@@ -605,7 +605,7 @@ extension IRCClient : IRCDispatcher {
                         message    : String) throws
     {
         guard let sender = sender else { // should never happen
-            assertionFailure("got empty message sender!")
+//            assertionFailure("got empty message sender!")
             return
         }
         delegate?.client(self, message: message, from: sender, for: recipients)
