@@ -17,11 +17,18 @@ This module contains a simple IRC client library. Also provided:
 
 - [BrickBot](https://github.com/Under-the-Bed-Software/BrickBot) - A simple IRC bot using swift-nio-irc-client
 
+This is also the primary IRC client driver for a new and still work-in-progress iOS IRC client.
+Stay tuned for more updates which will become available in the near future.
 
 NIOIRC is a SwiftNIO port of the
 [Noze.io miniirc](https://github.com/NozeIO/Noze.io/tree/master/Samples/miniirc)
 example from 2016.
 
+## Features
+
+Currently, I'm not sure the breadth of the features of this IRC client implementation.
+As far as I am aware there are not very many [IRCv3](https://ircv3.net) features
+supported, but that's something I'm currently working on making happen.
 
 ## Importing the module using Swift Package Manager
 
