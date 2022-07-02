@@ -594,13 +594,13 @@ extension IRCClient : IRCDispatcher {
         }
     }
     
-    open func doNotice(recipients: [ IRCMessageRecipient ], message: String)
+    public func doNotice(recipients: [ IRCMessageRecipient ], message: String)
     throws
     {
         delegate?.client(self, notice: message, for: recipients)
     }
     
-    open func doMessage(sender     : IRCUserID?,
+    public func doMessage(sender     : IRCUserID?,
                         recipients : [ IRCMessageRecipient ],
                         message    : String) throws
     {
@@ -611,7 +611,7 @@ extension IRCClient : IRCDispatcher {
         delegate?.client(self, message: message, from: sender, for: recipients)
     }
     
-    open func doNick(_ newNick: IRCNickName) throws {
+    public func doNick(_ newNick: IRCNickName) throws {
         switch state {
         case .registering(let channel, let nick, let info):
             guard nick != newNick else { return }
@@ -627,7 +627,7 @@ extension IRCClient : IRCDispatcher {
         delegate?.client(self, changedNickTo: newNick)
     }
     
-    open func doMode(nick: IRCNickName, add: IRCUserMode, remove: IRCUserMode)
+    public func doMode(nick: IRCNickName, add: IRCUserMode, remove: IRCUserMode)
     throws
     {
         guard let myNick = state.nick, myNick == nick else {
@@ -643,7 +643,7 @@ extension IRCClient : IRCDispatcher {
         }
     }
     
-    open func doPing(_ server: String, server2: String? = nil) throws {
+    public func doPing(_ server: String, server2: String? = nil) throws {
         let msg : IRCMessage
         
         msg = IRCMessage(origin: origin, // probably wrong
